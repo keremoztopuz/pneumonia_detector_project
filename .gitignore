@@ -1,0 +1,29 @@
+# Dataset file
+data/
+dataset/
+chest_xray/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+.Python
+
+# Model outputs (large files)
+outputs/models/*.pth
+*.pt
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+
+# MacOS
+.DS_Store
