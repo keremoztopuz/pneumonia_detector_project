@@ -1,6 +1,5 @@
 # Dataset file
 data/
-dataset/
 chest_xray/
 
 # Python cache
