@@ -24,6 +24,7 @@ SEED = 42
 
 # augmentations
 IMAGE_SIZE = 224
+LABEL_SMOOTHING = 0.0
 MEAN = [0.485, 0.456, 0.406]
 STD = [0.229, 0.224, 0.225]
 
