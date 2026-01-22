@@ -63,8 +63,11 @@ def validate_model(model, val_loader, criterion):
     avg_loss = running_loss / len(val_loader)
     recall = recall_score(all_labels, all_preds)
     f1 = f1_score(all_labels, all_preds)
+    accuracy = accuracy_score(all_labels, all_preds)
+    precision = precision_score(all_labels, all_preds)
+    train_loss = running_loss / len(train_loader)
         
-    print(f"Validation loss: {avg_loss:.4f}, recall: {recall:.4f}, f1: {f1:.4f}")
+    print(f"Validation loss: {avg_loss:.4f} | train_loss: {train_loss:.4f} | accuracy: {accuracy:.4f} precision: {precision:.4f}| recall: {recall:.4f} | f1: {f1:.4f}")
         
     return avg_loss
     
