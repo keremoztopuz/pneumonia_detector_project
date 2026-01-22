@@ -23,7 +23,7 @@ from src.config import (
     MODEL_SAVE_PATH
 )
 from src.model import create_model
-from src.dataset import load_data, create_dataloaders
+from src.dataset import create_dataloaders
 
 class FocalLoss(nn.Module):
     def __init__(self, gamma=FOCAL_GAMMA, label_smoothing=LABEL_SMOOTHING):
