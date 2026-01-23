@@ -16,6 +16,7 @@ from src.config import (
     BATCH_SIZE, 
     DROP_RATE, 
     DEVICE, 
+    CLASS_WEIGHTS,
     PATIENCE,
     WEIGHT_DECAY,
     FOCAL_GAMMA,
@@ -26,8 +27,9 @@ from src.model import create_model
 from src.dataset import create_dataloaders
 
 class FocalLoss(nn.Module):
-    def __init__(self, gamma=FOCAL_GAMMA, label_smoothing=LABEL_SMOOTHING):
+    def __init__(self, gamma=FOCAL_GAMMA, weight=None, label_smoothing=LABEL_SMOOTHING):
         super().__init__()
+        self.weight = weight
         self.gamma = gamma
         self.label_smoothing = label_smoothing
 
@@ -41,7 +43,7 @@ class FocalLoss(nn.Module):
         focal_loss = ((1-pt)**self.gamma * ce_loss)
         return focal_loss.mean()
 
-def validate_model(model, val_loader, criterion):
+def validate_model(model, val_loader, train_loader, criterion):
     model.eval()
 
     running_loss = 0.0
@@ -79,12 +81,12 @@ def train_model(model_name = None, save_path=None, epochs=None):
 
     os.makedirs(os.path.dirname(save_path), exist_ok=True)
 
-    weights = torch.tensor(config.CLASS_WEIGHTS, dtype=torch.float32).to(DEVICE)
+    weights = torch.tensor(CLASS_WEIGHTS, dtype=torch.float32).to(DEVICE)
 
     model = create_model(model_name=model_name)
     model.to(DEVICE)
 
-    criterion = FocalLoss(weights=weights)
+    criterion = FocalLoss(weight=weights)
     optimizer = optim.AdamW(model.parameters(), lr=LEARNING_RATE, weight_decay=WEIGHT_DECAY)
     scheduler = CosineAnnealingLR(optimizer, T_max=epochs, eta_min=LEARNING_RATE / 10)
 
@@ -110,7 +112,7 @@ def train_model(model_name = None, save_path=None, epochs=None):
 
             running_loss += loss.item()
 
-        val_loss = validate_model(model, val_loader,criterion)
+        val_loss = validate_model(model, val_loader, train_loader, criterion)
 
         if val_loss < best_val_loss:
             best_val_loss = val_loss
