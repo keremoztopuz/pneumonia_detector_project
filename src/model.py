@@ -1,5 +1,5 @@
 import timm
-from src import config
+import config
 
 def create_model(model_name=None, num_classes=None, pretrained=True):
     model_name = model_name or config.MODEL_NAME

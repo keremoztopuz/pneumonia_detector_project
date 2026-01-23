@@ -6,8 +6,8 @@ from PIL import Image
 import matplotlib.pyplot as plt
 from torchvision import transforms
 
-from src.config import DEVICE, MODEL_SAVE_PATH, CLASS_NAMES, IMAGE_SIZE, MEAN, STD
-from src.model import create_model
+from config import DEVICE, MODEL_SAVE_PATH, CLASS_NAMES, IMAGE_SIZE, MEAN, STD
+from model import create_model
 
 def get_transform():
     return transforms.Compose([

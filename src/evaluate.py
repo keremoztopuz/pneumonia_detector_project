@@ -8,9 +8,9 @@ from sklearn.metrics import (accuracy_score, recall_score,
 import matplotlib.pyplot as plt
 import seaborn as sns 
 
-from src.config import DEVICE, MODEL_SAVE_PATH, CLASS_NAMES
-from src.model import create_model
-from src.dataset import create_dataloaders
+from config import DEVICE, MODEL_SAVE_PATH, CLASS_NAMES
+from model import create_model
+from dataset import create_dataloaders
 
 def evaluate_model(model_name=None, save_path=None):
     model_path = save_path or MODEL_SAVE_PATH

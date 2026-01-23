@@ -119,7 +119,3 @@ This project is licensed under the MIT License.
 - [Kaggle Chest X-Ray Dataset](https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia)
 - [timm (PyTorch Image Models)](https://github.com/huggingface/pytorch-image-models)
 
-## IMPORTANT!!!!
-
-If you use notebooks to train the model, change those imports:
-"Imports that contains "from src.filename" to "from filename"

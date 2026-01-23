@@ -8,7 +8,7 @@ from tqdm import tqdm
 import numpy as np
 from sklearn.metrics import accuracy_score, recall_score, precision_score, f1_score
 
-from src.config import (
+from config import (
     MODEL_NAME, 
     NUM_CLASSES, 
     LEARNING_RATE, 
@@ -23,8 +23,8 @@ from src.config import (
     LABEL_SMOOTHING,
     MODEL_SAVE_PATH
 )
-from src.model import create_model
-from src.dataset import create_dataloaders
+from model import create_model
+from dataset import create_dataloaders
 
 class FocalLoss(nn.Module):
     def __init__(self, gamma=FOCAL_GAMMA, weight=None, label_smoothing=LABEL_SMOOTHING):
