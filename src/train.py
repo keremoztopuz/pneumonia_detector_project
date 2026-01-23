@@ -34,6 +34,7 @@ class FocalLoss(nn.Module):
     def forward(self, inputs, targets):
         ce_loss = F.cross_entropy(
             inputs, targets, reduction="none",
+            weight=self.weight,
             label_smoothing=self.label_smoothing)
         
         pt = torch.exp(-ce_loss)
@@ -78,10 +79,12 @@ def train_model(model_name = None, save_path=None, epochs=None):
 
     os.makedirs(os.path.dirname(save_path), exist_ok=True)
 
+    weights = torch.tensor(config.CLASS_WEIGHTS, dtype=torch.float32).to(DEVICE)
+
     model = create_model(model_name=model_name)
     model.to(DEVICE)
 
-    criterion = FocalLoss()
+    criterion = FocalLoss(weights=weights)
     optimizer = optim.AdamW(model.parameters(), lr=LEARNING_RATE, weight_decay=WEIGHT_DECAY)
     scheduler = CosineAnnealingLR(optimizer, T_max=epochs, eta_min=LEARNING_RATE / 10)
 
