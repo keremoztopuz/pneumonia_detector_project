@@ -3,7 +3,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
-from torch.optim.lr_scheduler import CosineAnnealingLR
+from torch.optim.lr_scheduler import ReduceLROnPlateau
 from tqdm import tqdm
 import numpy as np
 from sklearn.metrics import accuracy_score, recall_score, precision_score, f1_score
@@ -88,7 +88,7 @@ def train_model(model_name = None, save_path=None, epochs=None):
 
     criterion = FocalLoss(weight=weights)
     optimizer = optim.AdamW(model.parameters(), lr=LEARNING_RATE, weight_decay=WEIGHT_DECAY)
-    scheduler = CosineAnnealingLR(optimizer, T_max=epochs, eta_min=LEARNING_RATE / 10)
+    scheduler = ReduceLROnPlateau(optimizer, mode='min', factor=0.1, patience=5, verbose=True)
 
     best_val_loss = float("inf")
     patience_counter = 0
@@ -113,6 +113,7 @@ def train_model(model_name = None, save_path=None, epochs=None):
             running_loss += loss.item()
 
         val_loss = validate_model(model, val_loader, train_loader, criterion)
+        scheduler.step(val_loss)
 
         if val_loss < best_val_loss:
             best_val_loss = val_loss
@@ -125,7 +126,6 @@ def train_model(model_name = None, save_path=None, epochs=None):
                 print(f"\npatience counter reached {PATIENCE}. early stopping")
                 break
             
-        scheduler.step()
 
 if __name__ == "__main__":
     train_model()
