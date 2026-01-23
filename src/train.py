@@ -51,27 +51,23 @@ def validate_model(model, val_loader, train_loader, criterion):
     all_labels = []
 
     with torch.no_grad():
-        for images, labels in tqdm(val_loader):
-            images = images.to(DEVICE)
-            labels = labels.to(DEVICE)
-
+        for images, labels in tqdm(val_loader, desc="Validating"):
+            images, labels = images.to(DEVICE), labels.to(DEVICE)
             outputs = model(images)
             loss = criterion(outputs, labels)
             running_loss += loss.item()
-
-            _, preds = torch.max(outputs, dim=1)
+            _, preds = torch.max(outputs, 1)
             all_preds.extend(preds.cpu().numpy())
             all_labels.extend(labels.cpu().numpy())
         
     avg_loss = running_loss / len(val_loader)
-    recall = recall_score(all_labels, all_preds)
-    f1 = f1_score(all_labels, all_preds)
-    accuracy = accuracy_score(all_labels, all_preds)
-    precision = precision_score(all_labels, all_preds)
-    train_loss = running_loss / len(train_loader)
-        
-    print(f"Validation loss: {avg_loss:.4f} | train_loss: {train_loss:.4f} | accuracy: {accuracy:.4f} precision: {precision:.4f}| recall: {recall:.4f} | f1: {f1:.4f}")
-        
+    acc = accuracy_score(all_labels, all_preds)
+    prec = precision_score(all_labels, all_preds, zero_division=0)
+    rec = recall_score(all_labels, all_preds, zero_division=0)
+    f1 = f1_score(all_labels, all_preds, zero_division=0)
+    
+    print(f"\n[VAL] Loss: {avg_loss:.4f} | Acc: {acc:.4f} | Prec: {prec:.4f} | Rec: {rec:.4f} | F1: {f1:.4f}")
+
     return avg_loss
     
 def train_model(model_name = None, save_path=None, epochs=None):
