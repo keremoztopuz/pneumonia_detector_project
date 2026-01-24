@@ -122,6 +122,8 @@ python -m src.gradcam
 
 The model uses Grad-CAM to highlight regions that influenced its prediction, providing interpretability for medical professionals.
 
+> **Note**: These results were obtained using the original Kaggle dataset. However, during model training, some modifications were made to the dataset locally to enable training and prevent overfitting. The original dataset remains unchanged.
+
 ## Technologies
 
 - Python
