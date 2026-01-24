@@ -2,13 +2,13 @@ import os
 import torch
 
 # data paths
-DATA_DIR = os.path.join("your local path or notebook path. change here to train model")
+DATA_DIR = os.path.join("/Users/keremoztopuz/Desktop/pneumonia_detector_project/data")
 TRAIN_DIR = os.path.join(DATA_DIR, "train")
 TEST_DIR = os.path.join(DATA_DIR, "test")
 VAL_DIR = os.path.join(DATA_DIR, "val")
 
 # model settings
-MODEL_NAME = "convnext_t"
+MODEL_NAME = "convnext_tiny"
 NUM_CLASSES = 2
 DROP_RATE = 0.2
 

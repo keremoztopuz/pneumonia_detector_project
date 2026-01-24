@@ -84,7 +84,7 @@ def train_model(model_name = None, save_path=None, epochs=None):
 
     criterion = FocalLoss(weight=weights)
     optimizer = optim.AdamW(model.parameters(), lr=LEARNING_RATE, weight_decay=WEIGHT_DECAY)
-    scheduler = ReduceLROnPlateau(optimizer, mode='min', factor=0.1, patience=5, verbose=True)
+    scheduler = ReduceLROnPlateau(optimizer, mode='min', factor=0.1, patience=5)
 
     best_val_loss = float("inf")
     patience_counter = 0
