@@ -2,7 +2,7 @@ import os
 import torch
 
 # data paths
-DATA_DIR = os.path.join("/Users/keremoztopuz/Desktop/pneumonia_detector_project/data")
+DATA_DIR = os.path.join("your local path or notebook path. change here to train model")
 TRAIN_DIR = os.path.join(DATA_DIR, "train")
 TEST_DIR = os.path.join(DATA_DIR, "test")
 VAL_DIR = os.path.join(DATA_DIR, "val")

@@ -95,10 +95,32 @@ python -m src.gradcam
 
 ## Results
 
-After training, the model outputs:
-- **Accuracy**, **Precision**, **Recall**, **F1-Score**
-- **Confusion Matrix** visualization
-- **Grad-CAM heatmaps** for interpretability
+### Test Set Performance
+
+| Metric | Score |
+|--------|-------|
+| **Accuracy** | 97.75% |
+| **Precision** | 0.91 |
+| **Recall** | 0.84 |
+| **F1-Score** | 0.86 |
+
+### Classification Report
+
+| Class | Precision | Recall | F1-Score | Support |
+|-------|-----------|--------|----------|---------|
+| NORMAL | 0.98 | 0.68 | 0.80 | 234 |
+| PNEUMONIA | 0.84 | 0.99 | 0.91 | 390 |
+
+### Confusion Matrix
+
+|  | Pred: NORMAL | Pred: PNEUMONIA |
+|--|--------------|-----------------|
+| **True: NORMAL** | 199 | 3 |
+| **True: PNEUMONIA** | 14 | 540 |
+
+### Grad-CAM Visualization
+
+The model uses Grad-CAM to highlight regions that influenced its prediction, providing interpretability for medical professionals.
 
 ## Technologies
 

@@ -23,6 +23,12 @@ val_transforms = transforms.Compose([
     transforms.Normalize(mean=config.MEAN, std=config.STD)
 ])
     
+def apply_clahe_to_pil(img):
+    img_np = np.array(img.convert('L'))
+    clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
+    cl1 = clahe.apply(img_np)
+    return Image.fromarray(cl1).convert('RGB')
+
 class PneumoniaDataset(Dataset):
     def __init__(self, image_paths, labels, transform=None):
         self.image_paths = image_paths
@@ -34,13 +40,15 @@ class PneumoniaDataset(Dataset):
 
     def __getitem__(self, idx):
         image_path = self.image_paths[idx]
-        image = Image.open(image_path).convert("RGB")
+        image = Image.open(image_path)
+        image = apply_clahe_to_pil(image)
 
         if self.transform:
             image = self.transform(image)
+        label = self.labels[idx]
 
-        return image, self.labels[idx]
-
+        return image, torch.tensor(label, dtype=torch.long)
+        
 def load_data(DATA_DIR):
     images = []
     labels = []
