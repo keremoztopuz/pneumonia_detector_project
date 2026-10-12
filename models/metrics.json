@@ -1,0 +1,38 @@
+{
+  "holdout_patient_split": {
+    "n": 760,
+    "accuracy": 0.9710526315789474,
+    "pneumonia_precision": 0.9962962962962963,
+    "pneumonia_recall": 0.96415770609319,
+    "normal_recall": 0.9900990099009901,
+    "f1": 0.9799635701275046,
+    "confusion_matrix[true][pred]": [
+      [
+        200,
+        2
+      ],
+      [
+        20,
+        538
+      ]
+    ]
+  },
+  "official_kaggle_test": {
+    "n": 624,
+    "accuracy": 0.8846153846153846,
+    "pneumonia_precision": 0.8502202643171806,
+    "pneumonia_recall": 0.9897435897435898,
+    "normal_recall": 0.7094017094017094,
+    "f1": 0.9146919431279621,
+    "confusion_matrix[true][pred]": [
+      [
+        166,
+        68
+      ],
+      [
+        4,
+        386
+      ]
+    ]
+  }
+}

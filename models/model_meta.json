@@ -1,0 +1,22 @@
+{
+  "architecture": "convnext_tiny",
+  "num_classes": 2,
+  "class_names": [
+    "NORMAL",
+    "PNEUMONIA"
+  ],
+  "drop_rate": 0.2,
+  "input_size": 200,
+  "preprocessing": "CLAHE(clip=2.0, grid=8x8) -> Resize(256) -> CenterCrop(200) -> Normalize(ImageNet)",
+  "seed": 42,
+  "best_val_loss": 0.014830044335189778,
+  "split_counts": {
+    "train/NORMAL": 938,
+    "val/NORMAL": 201,
+    "test_new/NORMAL": 202,
+    "train/PNEUMONIA": 2712,
+    "val/PNEUMONIA": 605,
+    "test_new/PNEUMONIA": 558
+  },
+  "note": "Binary classes: 0=NORMAL, 1=PNEUMONIA. Trained on pediatric chest X-rays (Guangzhou); not a diagnostic tool."
+}
